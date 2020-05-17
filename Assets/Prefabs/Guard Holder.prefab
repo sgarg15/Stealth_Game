@@ -106,12 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938f4f9e9534bb9488dfdb6ea690a634, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  speed: 8
   waitTime: 0.3
   turnSpeed: 90
-  timeToSpotPlayer: 0.6
+  timeToSpotPlayer: 0.5
   spotLight: {fileID: 2191683280566993630}
-  viewDistance: 5
+  viewDistance: 10
   viewMask:
     serializedVersion: 2
     m_Bits: 512
@@ -282,8 +282,8 @@ Light:
   serializedVersion: 8
   m_Type: 0
   m_Color: {r: 0.6509434, g: 0.6217531, b: 0, a: 1}
-  m_Intensity: 15.4
-  m_Range: 8
+  m_Intensity: 7.4
+  m_Range: 12.8
   m_SpotAngle: 90
   m_CookieSize: 10
   m_Shadows:

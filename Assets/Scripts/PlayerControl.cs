@@ -6,38 +6,27 @@ using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour {
 
   public event System.Action OnReachedEndOfLevel;
-  public float moveSpeed = 6;
-  public float smoothMoveTime = 0.1f;
-  public float turnSpeed = 8;
-
-  float angle;
-
-  float smoothInputMagnitude;
-  float smoothMoveVelocity;
+  public float speed = 10.0f;
 
   Rigidbody myRigidbody;
-  Vector3 velocity;
-  Vector3 inputDirection;
   bool disabled;
   // Start is called before the first frame update
   void Start() {
     myRigidbody = GetComponent<Rigidbody> ();
     Guard.OnGuardHasSpottedPlayer += Disabled;
+    Cursor.lockState = CursorLockMode.Locked;
   }
 
   // Update is called once per frame
   void Update() {
-    Vector3 inputDirection = Vector3.zero;
     if(!disabled){
-     inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+      float translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+      float straffe = Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
+      transform.Translate(straffe, 0, translation);
     }
-    float inputMagnitude = inputDirection.magnitude;
-    smoothInputMagnitude = Mathf.SmoothDamp(smoothInputMagnitude, inputMagnitude, ref smoothMoveVelocity, smoothMoveTime);
-
-    float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
-    angle = Mathf.LerpAngle(angle, targetAngle, Time.deltaTime * turnSpeed * inputMagnitude);
-
-    velocity = transform.forward * moveSpeed * smoothInputMagnitude;
+    if(Input.GetKeyDown("escape")){
+      Cursor.lockState = CursorLockMode.None;
+    }
   }
 
   void OnTriggerEnter(Collider hitCollider){
@@ -51,11 +40,6 @@ public class PlayerControl : MonoBehaviour {
 
   void Disabled(){
     disabled = true;
-  }
-
-  void FixedUpdate(){
-    myRigidbody.MoveRotation (Quaternion.Euler(Vector3.up * angle));
-    myRigidbody.MovePosition (myRigidbody.position + velocity * Time.deltaTime);
   }
 
   void OnDestroy(){
