@@ -8,7 +8,7 @@ public class ScoreKeeper : MonoBehaviour {
 
   public Text scoreUI;
   public float scoreToIncreaseBy;
-  float coinScore;
+  public static float coinScore;
   // Start is called before the first frame update
   void Start() {
 
