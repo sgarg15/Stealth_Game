@@ -42,13 +42,16 @@ public class PlayerControl : MonoBehaviour {
 
   void OnTriggerEnter(Collider hitCollider){
     if(hitCollider.tag == "Finish"){
-      Disabled();
+      loadNextScene();
       if(OnReachedEndOfLevel != null){
         OnReachedEndOfLevel ();
       }
     }
   }
 
+  void loadNextScene(){
+    SceneManager.LoadScene(1);
+  }
   void Disabled(){
     disabled = true;
   }
